@@ -548,7 +548,7 @@ const activeTab = ref('pending')
   font-weight: $font-weight-semibold;
   padding: $spacing-lg 0;
   font-size: $font-size-lg;
-  background: linear-gradient(135deg, $danger-color 0%, color.scale($danger-color, $lightness: 10%) 100%);
+  background: linear-gradient(135deg, $danger-color 0%, rgba(255, 77, 79, 0.9) 100%);
   border: none;
   box-shadow: 0 4px 16px rgba(245, 34, 45, 0.3);
   transition: all $transition-base;

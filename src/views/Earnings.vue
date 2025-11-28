@@ -315,15 +315,15 @@ const goToWithdraw = () => {
 }
 
 .stat-icon.today {
-  background: linear-gradient(135deg, $success-color 0%, color.scale($success-color, $lightness: 10%) 100%);
+  background: linear-gradient(135deg, $success-color 0%, rgba(7, 193, 96, 0.9) 100%);
 }
 
 .stat-icon.week {
-  background: linear-gradient(135deg, $warning-color 0%, color.scale($warning-color, $lightness: 10%) 100%);
+  background: linear-gradient(135deg, $warning-color 0%, rgba(250, 173, 20, 0.9) 100%);
 }
 
 .stat-icon.month {
-  background: linear-gradient(135deg, $danger-color 0%, color.scale($danger-color, $lightness: 10%) 100%);
+  background: linear-gradient(135deg, $danger-color 0%, rgba(255, 77, 79, 0.9) 100%);
 }
 
 .stat-content {
@@ -644,11 +644,11 @@ const goToWithdraw = () => {
 }
 
 .type-bonus {
-  background: linear-gradient(135deg, $success-color 0%, color.scale($success-color, $lightness: 10%) 100%);
+  background: linear-gradient(135deg, $success-color 0%, rgba(7, 193, 96, 0.9) 100%);
 }
 
 .type-penalty {
-  background: linear-gradient(135deg, $danger-color 0%, color.scale($danger-color, $lightness: 10%) 100%);
+  background: linear-gradient(135deg, $danger-color 0%, rgba(255, 77, 79, 0.9) 100%);
 }
 
 .record-date {
