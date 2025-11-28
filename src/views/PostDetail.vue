@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCommunityStore } from '../stores/community'
+import CustomNavBar from '../components/CustomNavBar.vue'
 import { toast } from '../utils/toast'
 
 const route = useRoute()
@@ -45,10 +46,7 @@ const submitComment = async () => {
   }
 }
 
-// 返回社区首页
-const goBack = () => {
-  router.back()
-}
+// 返回功能已由CustomNavBar组件处理
 
 // 页面挂载时加载数据
 onMounted(() => {
@@ -59,13 +57,7 @@ onMounted(() => {
 <template>
   <div class="post-detail-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar title="帖子详情" class="custom-nav-bar">
-      <template #left>
-        <div @click="goBack" class="back-btn">
-          <van-icon name="arrow-left" size="20" color="#fff" />
-        </div>
-      </template>
-    </van-nav-bar>
+    <CustomNavBar title="帖子详情" />
     
     <!-- 帖子内容 -->
     <div v-if="communityStore.currentPost" class="post-content">

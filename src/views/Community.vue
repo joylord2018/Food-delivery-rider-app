@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCommunityStore } from '../stores/community'
 import { toast } from '../utils/toast'
+import CustomNavBar from '../components/CustomNavBar.vue'
 
 const router = useRouter()
 const communityStore = useCommunityStore()
@@ -75,13 +76,13 @@ onMounted(() => {
 <template>
   <div class="community-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar title="骑手社区" class="custom-nav-bar" left-arrow @click-left="() => $router.back()">
+    <CustomNavBar title="骑手社区">
       <template #right>
         <div @click="goToCreatePost" class="create-btn">
           <van-icon name="plus" size="20" color="#fff" />
         </div>
       </template>
-    </van-nav-bar>
+    </CustomNavBar>
 
     <!-- 搜索栏-->
     <div class="search-section">
@@ -218,17 +219,6 @@ onMounted(() => {
   min-height: 100vh;
   background-color: $background-color;
   padding-bottom: 80px;
-  
-  /* 顶部导航栏 */
-  .custom-nav-bar {
-    background: linear-gradient(135deg, $primary-color 0%, #36cfc9 100%);
-    color: #fff;
-    
-    :deep(.van-nav-bar__title) {
-      color: #fff;
-      font-weight: 600;
-    }
-  }
   
   .create-btn {
     padding: 0 1rem;

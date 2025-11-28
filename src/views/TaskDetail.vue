@@ -5,6 +5,7 @@ import { useTaskStore } from '../stores/task'
 import CustomDialog from '../components/CustomDialog.vue'
 import MapComponent from '../components/MapComponent.vue'
 import CountdownTimer from '../components/CountdownTimer.vue'
+import CustomNavBar from '../components/CustomNavBar.vue'
 import { toast } from '../utils/toast'
 
 const route = useRoute()
@@ -232,7 +233,7 @@ const showRoute = ref(true)
 <template>
   <div class="task-detail-container" v-if="task">
     <!-- 顶部导航栏-->
-    <van-nav-bar title="任务详情" @click-left="router.back()" class="custom-nav-bar" left-arrow />
+    <CustomNavBar title="任务详情" />
 
     <!-- 任务基本信息 -->
     <div class="task-info-card">

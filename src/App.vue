@@ -74,17 +74,56 @@ watch(() => route.name, (newName) => {
 </template>
 
 <style lang="scss" scoped>
+@use './variables' as *;
+
 .app-container {
   height: 100vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: $background-color;
 }
 
-// 确保路由出口占据剩余空间，允许内部滚动
-:deep(.router-view-container) {
+// 路由出口容器
+.router-view-container {
   flex: 1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+// 路由过渡动画
+:deep(.router-view) {
+  transition: all $transition-base;
+}
+
+// 底部导航栏样式优化
+:deep(.van-tabbar) {
+  background-color: $white;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+  border-top: 1px solid $border-color;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+:deep(.van-tabbar-item) {
+  font-size: $font-size-sm;
+  color: $text-color-secondary;
+  
+  &.van-tabbar-item--active {
+    color: $primary-color;
+    
+    .van-icon {
+      color: $primary-color;
+    }
+  }
+}
+
+:deep(.van-tabbar-item__icon) {
+  font-size: 22px;
+  margin-bottom: $spacing-xs;
+}
+
+:deep(.van-tabbar-item__text) {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
 }
 </style>

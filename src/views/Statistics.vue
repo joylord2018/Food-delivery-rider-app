@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useStatisticsStore } from '../stores/statistics'
 import { toast } from '../utils/toast'
+import CustomNavBar from '../components/CustomNavBar.vue'
 
-const router = useRouter()
 const statisticsStore = useStatisticsStore()
 
 // 加载状态
@@ -62,13 +61,13 @@ const formatTime = (minutes: number) => {
 <template>
   <div class="statistics-container">
     <!-- 顶部导航�?-->
-    <van-nav-bar title="工作统计" @click-left="router.back()" class="custom-nav-bar" left-arrow>
+    <CustomNavBar title="工作统计">
       <template #right>
         <div @click="fetchStatistics" class="refresh-btn">
           <van-icon name="replay" size="20" :loading="loading" color="#fff" />
         </div>
       </template>
-    </van-nav-bar>
+    </CustomNavBar>
 
     <!-- 时间筛选标�?-->
     <div class="time-tabs">
@@ -222,24 +221,11 @@ const formatTime = (minutes: number) => {
   overflow: hidden;
 }
 
-/* 顶部导航�?*/
-.custom-nav-bar {
-  background: linear-gradient(135deg, #1989fa 0%, #36cfc9 100%);
-  color: #fff;
-  position: relative;
-  z-index: 10;
-}
-
 /* 可滚动内容区域 */
 .scrollable-content {
   flex: 1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-}
-
-.custom-nav-bar :deep(.van-nav-bar__title) {
-  color: #fff;
-  font-weight: 600;
 }
 
 .refresh-btn {

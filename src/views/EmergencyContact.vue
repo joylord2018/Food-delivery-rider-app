@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { useEmergencyStore } from '../stores/emergency'
 import CustomDialog from '../components/CustomDialog.vue'
+import CustomNavBar from '../components/CustomNavBar.vue'
 import { toast } from '../utils/toast'
 
-const router = useRouter()
 const emergencyStore = useEmergencyStore()
 
 // 加载状态
@@ -139,7 +138,7 @@ const resetForm = () => {
 <template>
   <div class="emergency-contact-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar title="紧急联系人" @click-left="router.back()" class="custom-nav-bar" left-arrow />
+    <CustomNavBar title="紧急联系人" />
 
     <!-- 联系人列表-->
     <div class="contact-list">

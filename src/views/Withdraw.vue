@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useWithdrawStore } from '../stores/withdraw'
 import CustomDialog from '../components/CustomDialog.vue'
+import CustomNavBar from '../components/CustomNavBar.vue'
 import { toast } from '../utils/toast'
 
 const withdrawStore = useWithdrawStore()
@@ -206,12 +207,7 @@ onMounted(() => {
 <template>
   <div class="withdraw-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar 
-      title="提现" 
-      class="custom-nav-bar"
-      left-arrow
-      @click-left="() => $router.back()"
-    />
+    <CustomNavBar title="提现" />
 
     <!-- 可提现余额卡片-->
     <van-skeleton :loading="loading" title :rows="2" animated>

@@ -4,6 +4,7 @@ import { useLeaveStore } from '../stores/leave'
 import CustomDialog from '../components/CustomDialog.vue'
 import { toast } from '../utils/toast'
 import { DatePicker as VanDatePicker } from 'vant'
+import CustomNavBar from '../components/CustomNavBar.vue'
 
 const leaveStore = useLeaveStore()
 
@@ -214,12 +215,7 @@ onMounted(() => {
 <template>
   <div class="leave-request-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar 
-      title="请假申请" 
-      class="custom-nav-bar"
-      left-arrow
-      @click-left="() => $router.back()"
-    />
+    <CustomNavBar title="请假申请" />
 
     <!-- 可滚动内容区域 -->
     <div class="scrollable-content">
@@ -403,24 +399,11 @@ onMounted(() => {
   overflow: hidden;
 }
 
-/* 顶部导航栏*/
-.custom-nav-bar {
-  background: linear-gradient(135deg, #1989fa 0%, #36cfc9 100%);
-  color: #fff;
-  position: relative;
-  z-index: 10;
-}
-
 /* 可滚动内容区域 */
 .scrollable-content {
   flex: 1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-}
-
-.custom-nav-bar :deep(.van-nav-bar__title) {
-  color: #fff;
-  font-weight: 600;
 }
 
 /* 请假申请表单 */

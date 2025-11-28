@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useFeedbackStore } from '../stores/feedback'
 import { toast } from '../utils/toast'
+import CustomNavBar from '../components/CustomNavBar.vue'
 
 const feedbackStore = useFeedbackStore()
 
@@ -81,12 +82,7 @@ onMounted(() => {
 <template>
   <div class="rating-list-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar 
-      title="评价列表" 
-      class="custom-nav-bar"
-      left-arrow
-      @click-left="() => $router.back()"
-    />
+    <CustomNavBar title="评价列表" />
 
     <!-- 评分统计卡片 -->
     <div class="rating-stats-card">
@@ -247,17 +243,6 @@ onMounted(() => {
 .rating-list-container {
   min-height: 100vh;
   background-color: $background-color;
-
-  /* 顶部导航栏*/
-  .custom-nav-bar {
-    background: linear-gradient(135deg, $primary-color 0%, #36cfc9 100%);
-    color: $white;
-
-    :deep(.van-nav-bar__title) {
-      color: $white;
-      font-weight: 600;
-    }
-  }
 
   /* 评分统计卡片 */
   .rating-stats-card {

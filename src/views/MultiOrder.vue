@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTaskStore, type Task } from '../stores/task'
+import CustomNavBar from '../components/CustomNavBar.vue'
 import { toast } from '../utils/toast'
 
 const router = useRouter()
@@ -81,13 +82,13 @@ const getStatusIcon = (status: Task['status']) => {
 <template>
   <div class="multi-order-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar title="多订单管理" @click-left="router.back()" class="custom-nav-bar" left-arrow>
+    <CustomNavBar title="多订单管理">
       <template #right>
         <div @click="fetchTasks" class="refresh-btn">
           <van-icon name="replay" size="20" :loading="loading" color="#fff" />
         </div>
       </template>
-    </van-nav-bar>
+    </CustomNavBar>
 
     <!-- 订单概览 -->
     <div class="order-overview">

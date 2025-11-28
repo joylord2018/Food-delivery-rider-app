@@ -7,6 +7,7 @@ import { toast } from '../utils/toast'
 
 
 import CustomDialog from '../components/CustomDialog.vue'
+import CustomNavBar from '../components/CustomNavBar.vue'
 
 const taskStore = useTaskStore()
 
@@ -184,7 +185,7 @@ const activeTab = ref('pending')
 <template>
   <div class="home-container">
     <!-- 顶部导航栏 -->
-    <van-nav-bar title="首页" class="custom-nav-bar">
+    <CustomNavBar title="首页" show-back="false">
       <template #right>
         <van-icon
           name="bell-o"
@@ -194,7 +195,7 @@ const activeTab = ref('pending')
         />
         <van-badge :content="notificationStore.unreadCount" class="notification-badge" />
       </template>
-    </van-nav-bar>
+    </CustomNavBar>
 
     <!-- 在线状态切换 -->
     <div class="online-status-section">
@@ -452,101 +453,58 @@ const activeTab = ref('pending')
 </template>
 
 <style lang="scss" scoped>
+@use '../variables' as *;
+
 .home-container {
   height: 100%;
-  background-color: #f5f7fa;
+  background-color: $background-color;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-/* 固定标签页 */
-.fixed-tabs {
-  background-color: #fff;
-  border-radius: 12px 12px 0 0;
-  margin: 0 1rem;
-  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
-  z-index: 10;
-}
-
-.task-tabs {
-  background-color: #fff;
-}
-
-.task-tabs :deep(.van-tabs__nav) {
-  background-color: #fff;
-}
-
-.task-tabs :deep(.van-tab) {
-  font-size: 1.4rem;
-  font-weight: 500;
-}
-
-.task-tabs :deep(.van-tabs__line) {
-  background-color: #1989fa;
-  height: 3px;
-  width: 30px;
-}
-
-/* 可滚动任务内容 */
-.scrollable-tasks {
-  flex: 1;
-  overflow: auto;
-  padding: 0 1rem 1rem;
-  margin-top: -1px; /* 消除与标签页的间隙 */
-}
-
-.tab-content {
-  background-color: #fff;
-  border-radius: 0 0 12px 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-}
-
-/* 任务列表 */
-.task-list {
-  padding: 1rem;
-  overflow: visible;
-}
-
-/* 顶部导航栏 */
-.custom-nav-bar {
-  background: linear-gradient(135deg, #1989fa 0%, #36cfc9 100%);
-  color: #fff;
-  position: relative;
-}
-
-.custom-nav-bar :deep(.van-nav-bar__title) {
-  color: #fff;
-  font-weight: 600;
-}
-
+/* 通知图标 */
 .notification-icon {
   color: #fff;
-  margin-right: 1rem;
+  margin-right: $spacing-lg;
   position: relative;
   cursor: pointer;
+  transition: all $transition-base;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .notification-badge {
   position: absolute;
   top: -5px;
-  right: 5px;
+  right: -5px;
+  min-width: 18px;
+  height: 18px;
+  line-height: 18px;
+  font-size: $font-size-xs;
 }
 
 /* 在线状态切换 */
 .online-status-section {
-  padding: 1rem;
+  padding: $spacing-lg;
 }
 
 .status-card {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
+  background-color: $white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
 }
 
 .status-info {
@@ -554,186 +512,247 @@ const activeTab = ref('pending')
 }
 
 .status-text {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #323233;
-  margin-bottom: 0.5rem;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $text-color;
+  margin-bottom: $spacing-xs;
 }
 
 .status-desc {
-  font-size: 1.3rem;
-  color: #969799;
-  line-height: 1.4;
+  font-size: $font-size-md;
+  color: $text-color-secondary;
+  line-height: $line-height-base;
 }
 
 .status-switch {
-  margin-left: 1rem;
+  margin-left: $spacing-lg;
+  
+  :deep(.van-switch__node) {
+    width: 24px;
+    height: 24px;
+  }
+  
+  :deep(.van-switch__background) {
+    width: 50px;
+    height: 28px;
+  }
 }
 
 /* 紧急求助按钮 */
 .emergency-section {
-  padding: 0 1rem 1rem;
+  padding: 0 $spacing-lg $spacing-lg;
 }
 
 .emergency-btn {
-  border-radius: 25px;
-  font-weight: 600;
-  padding: 1rem 0;
-  font-size: 1.5rem;
-  background: linear-gradient(135deg, #f5222d 0%, #ff7875 100%);
+  border-radius: $border-radius-full;
+  font-weight: $font-weight-semibold;
+  padding: $spacing-lg 0;
+  font-size: $font-size-lg;
+  background: linear-gradient(135deg, $danger-color 0%, color.scale($danger-color, $lightness: 10%) 100%);
   border: none;
+  box-shadow: 0 4px 16px rgba(245, 34, 45, 0.3);
+  transition: all $transition-base;
+  
+  &:hover {
+    box-shadow: 0 6px 20px rgba(245, 34, 45, 0.4);
+    transform: translateY(-2px);
+  }
 }
 
-/* 任务列表 */
-.tasks-section {
-  background-color: #fff;
-  border-radius: 12px 12px 0 0;
-  margin: 0 1rem 1rem;
+/* 固定标签页 */
+.fixed-tabs {
+  background-color: $white;
+  border-radius: $border-radius-lg $border-radius-lg 0 0;
+  margin: 0 $spacing-lg;
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  z-index: 10;
 }
 
 .task-tabs {
-  background-color: #fff;
+  background-color: $white;
+  
+  :deep(.van-tabs__nav) {
+    background-color: $white;
+  }
+  
+  :deep(.van-tab) {
+    font-size: $font-size-md;
+    font-weight: $font-weight-medium;
+    color: $text-color-secondary;
+  }
+  
+  :deep(.van-tab--active) {
+    color: $primary-color;
+  }
+  
+  :deep(.van-tabs__line) {
+    background-color: $primary-color;
+    height: 3px;
+    width: 30px;
+    border-radius: 2px;
+  }
 }
 
-.task-tabs :deep(.van-tabs__nav) {
-  background-color: #fff;
+/* 可滚动任务内容 */
+.scrollable-tasks {
+  flex: 1;
+  overflow: auto;
+  padding: 0 $spacing-lg $spacing-lg;
+  margin-top: -1px; /* 消除与标签页的间隙 */
 }
 
-.task-tabs :deep(.van-tab) {
-  font-size: 1.4rem;
-  font-weight: 500;
+.tab-content {
+  background-color: $white;
+  border-radius: 0 0 $border-radius-lg $border-radius-lg;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
 }
 
-.task-tabs :deep(.van-tabs__line) {
-  background-color: #1989fa;
-  height: 3px;
-  width: 30px;
-}
-
+/* 任务列表 */
 .task-list {
-  padding: 1rem;
+  padding: $spacing-lg;
+  overflow: visible;
 }
 
 .task-card {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.task-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  background-color: $white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
+  margin-bottom: $spacing-lg;
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
+  border: 1px solid $border-color-light;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
 }
 
 .task-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: $spacing-lg;
 }
 
 .task-id {
-  font-size: 1.3rem;
-  color: #646566;
+  font-size: $font-size-md;
+  color: $text-color-secondary;
 }
 
 .task-status {
-  padding: 0.4rem 1rem;
-  border-radius: 12px;
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: #fff;
+  padding: $spacing-xs $spacing-md;
+  border-radius: $border-radius-full;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $white;
 }
 
 .task-status.pending {
-  background-color: #faad14;
+  background-color: $warning-color;
 }
 
 .task-status.accepted {
-  background-color: #1989fa;
+  background-color: $primary-color;
 }
 
 .task-status.picked {
-  background-color: #52c41a;
+  background-color: $success-color;
 }
 
 .task-status.delivered {
-  background-color: #8c8c8c;
+  background-color: $text-color-tertiary;
 }
 
 .task-content {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1.5rem;
+  margin-bottom: $spacing-xl;
 }
 
 .task-info {
   flex: 1;
-  margin-right: 1rem;
+  margin-right: $spacing-lg;
 }
 
 .task-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #323233;
-  margin-bottom: 0.8rem;
-  line-height: 1.4;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $text-color;
+  margin-bottom: $spacing-md;
+  line-height: $line-height-base;
 }
 
 .task-time {
-  font-size: 1.3rem;
-  color: #969799;
-  margin-bottom: 0.5rem;
+  font-size: $font-size-md;
+  color: $text-color-secondary;
+  margin-bottom: $spacing-xs;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: $spacing-xs;
 }
 
 .task-countdown {
-  font-size: 1.3rem;
-  color: #f5222d;
+  font-size: $font-size-md;
+  color: $danger-color;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: $spacing-xs;
 }
 
 .task-price {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: $spacing-xs;
 }
 
 .price-label {
-  font-size: 1.3rem;
-  color: #969799;
+  font-size: $font-size-md;
+  color: $text-color-secondary;
 }
 
 .price-value {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #f5222d;
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $danger-color;
 }
 
 .task-actions {
-  margin-top: 1rem;
+  margin-top: $spacing-lg;
 }
 
 /* 响应式设计 */
-@media (max-width: 375px) {
+@media (max-width: $breakpoint-sm) {
   .task-content {
     flex-direction: column;
-    gap: 1rem;
+    gap: $spacing-lg;
   }
 
   .task-price {
     align-items: flex-start;
+  }
+  
+  .status-card {
+    padding: $spacing-lg;
+  }
+  
+  .task-card {
+    padding: $spacing-lg;
+  }
+}
+
+@media (max-width: $breakpoint-xs) {
+  .online-status-section,
+  .emergency-section,
+  .scrollable-tasks {
+    padding: $spacing-md;
+  }
+  
+  .fixed-tabs {
+    margin: 0 $spacing-md;
   }
 }
 </style>

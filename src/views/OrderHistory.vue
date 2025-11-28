@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTaskStore, type Task } from '../stores/task'
 import { toast } from '../utils/toast'
+import CustomNavBar from '../components/CustomNavBar.vue'
 
 const router = useRouter()
 const taskStore = useTaskStore()
@@ -81,12 +82,7 @@ const viewOrderDetail = (orderId: string) => {
 <template>
   <div class="order-history-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar 
-      title="订单历史" 
-      class="custom-nav-bar"
-      left-arrow
-      @click-left="() => $router.back()"
-    />
+    <CustomNavBar title="订单历史" />
 
     <!-- 筛选标签页 -->
     <div class="filter-tabs">
@@ -190,19 +186,6 @@ const viewOrderDetail = (orderId: string) => {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-
-  /* 顶部导航栏*/
-  .custom-nav-bar {
-    background: linear-gradient(135deg, $primary-color 0%, #36cfc9 100%);
-    color: $white;
-    position: relative;
-    z-index: 10;
-
-    :deep(.van-nav-bar__title) {
-      color: $white;
-      font-weight: 600;
-    }
-  }
 
   /* 筛选标签页 */
   .filter-tabs {

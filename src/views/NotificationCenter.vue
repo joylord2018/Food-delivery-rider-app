@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue' 
 import { useNotificationStore, type Notification } from '../stores/notification'
 import { toast } from '../utils/toast'
+import CustomNavBar from '../components/CustomNavBar.vue'
 
 const notificationStore = useNotificationStore()
 
@@ -80,13 +81,13 @@ updateFilteredNotifications()
 <template>
   <div class="notification-center-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar title="消息中心" class="custom-nav-bar" left-arrow @click-left="() => $router.back()">
+    <CustomNavBar title="消息中心">
       <template #right>
         <div @click="markAllAsRead" class="mark-all-btn">
           <span class="mark-all-text">全部已读</span>
         </div>
       </template>
-    </van-nav-bar>
+    </CustomNavBar>
 
     <!-- 筛选标签页 -->
     <div class="filter-tabs">
@@ -154,17 +155,6 @@ updateFilteredNotifications()
   background-color: #f5f7fa;
   padding-bottom: 5rem;
   box-sizing: border-box;
-}
-
-/* 顶部导航�?*/
-.custom-nav-bar {
-  background: linear-gradient(135deg, #1989fa 0%, #36cfc9 100%);
-  color: #fff;
-}
-
-.custom-nav-bar :deep(.van-nav-bar__title) {
-  color: #fff;
-  font-weight: 600;
 }
 
 .mark-all-btn {

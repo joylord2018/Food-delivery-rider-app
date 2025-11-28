@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useFeedbackStore } from '../stores/feedback'
+import CustomNavBar from '../components/CustomNavBar.vue'
 import { toast } from '../utils/toast'
 
 const feedbackStore = useFeedbackStore()
@@ -52,12 +53,7 @@ const isFormValid = computed(() => {
 <template>
   <div class="feedback-form-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar 
-      title="意见反馈" 
-      class="custom-nav-bar"
-      left-arrow
-      @click-left="() => $router.back()"
-    />
+    <CustomNavBar title="意见反馈" />
 
     <!-- 反馈表单 -->
     <div class="feedback-form-section">

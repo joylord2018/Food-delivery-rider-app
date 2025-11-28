@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useWeatherStore } from '../stores/weather'
 import { toast } from '../utils/toast'
+import CustomNavBar from '../components/CustomNavBar.vue'
 
 const weatherStore = useWeatherStore()
 
@@ -45,12 +46,7 @@ onMounted(() => {
 <template>
   <div class="weather-safety-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar 
-      title="天气安全" 
-      class="custom-nav-bar"
-      left-arrow
-      @click-left="() => $router.back()"
-    />
+    <CustomNavBar title="天气安全" />
 
     <!-- 天气信息卡片 -->
     <van-skeleton :loading="loading" title :rows="3" animated>
@@ -158,17 +154,6 @@ onMounted(() => {
 .weather-safety-container {
   min-height: 100vh;
   background-color: $background-color;
-  
-  /* 顶部导航栏 */
-  .custom-nav-bar {
-    background: linear-gradient(135deg, $primary-color 0%, #36cfc9 100%);
-    color: #fff;
-    
-    :deep(.van-nav-bar__title) {
-      color: #fff;
-      font-weight: 600;
-    }
-  }
   
   /* 天气信息卡片 */
   .weather-card {

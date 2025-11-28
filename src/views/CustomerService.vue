@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import CustomDialog from '../components/CustomDialog.vue'
 import { toast } from '../utils/toast'
+import CustomNavBar from '../components/CustomNavBar.vue'
 
 // 活跃的折叠面板
 const activeNames = ref(['0'])
@@ -99,7 +100,7 @@ const onlineService = () => {
 <template>
   <div class="customer-service-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar title="客服中心" left-arrow @click-left="() => $router.back()" />
+    <CustomNavBar title="客服中心" bg-color="#fff" text-color="#323233" />
 
     <!-- 联系客服卡片 -->
     <div class="contact-card">

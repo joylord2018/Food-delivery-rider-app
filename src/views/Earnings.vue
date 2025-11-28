@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useEarningsStore } from '../stores/earnings'
 import { toast } from '../utils/toast'
+import CustomNavBar from '../components/CustomNavBar.vue'
 
 const router = useRouter()
 const earningsStore = useEarningsStore()
@@ -75,7 +76,7 @@ const goToWithdraw = () => {
 <template>
   <div class="earnings-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar title="收益" class="custom-nav-bar" />
+    <CustomNavBar title="收益" show-back="false" />
 
     <!-- 可滚动内容区域 -->
     <div class="scrollable-content">
@@ -242,20 +243,14 @@ const goToWithdraw = () => {
 </template>
 
 <style lang="scss" scoped>
+@use '../variables' as *;
+
 .earnings-container {
   height: 100%;
-  background-color: #f5f7fa;
+  background-color: $background-color;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-
-/* 顶部导航栏*/
-.custom-nav-bar {
-  background: linear-gradient(135deg, #1989fa 0%, #36cfc9 100%);
-  color: #fff;
-  position: relative;
-  z-index: 10;
 }
 
 /* 可滚动内容区域 */
@@ -265,67 +260,70 @@ const goToWithdraw = () => {
   -webkit-overflow-scrolling: touch;
 }
 
-.custom-nav-bar :deep(.van-nav-bar__title) {
-  color: #fff;
-  font-weight: 600;
-}
-
 /* 收益统计卡片 */
 .earnings-stats-card {
-  background-color: #fff;
-  padding: 1.5rem;
-  margin: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  background-color: $white;
+  padding: $spacing-xl;
+  margin: $spacing-lg;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+  }
 }
 
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  gap: $spacing-xl;
+  margin-bottom: $spacing-xl;
 }
 
 .stat-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.2rem;
-  background-color: #fafafa;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.stat-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  gap: $spacing-lg;
+  padding: $spacing-lg;
+  background-color: $background-color-light;
+  border-radius: $border-radius-md;
+  transition: all $transition-base;
+  border: 1px solid $border-color-light;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+    border-color: $primary-light;
+  }
 }
 
 .stat-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  border-radius: $border-radius-full;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  color: #fff;
+  font-size: $font-size-lg;
+  color: $white;
+  flex-shrink: 0;
 }
 
 .stat-icon.total {
-  background: linear-gradient(135deg, #1989fa 0%, #36cfc9 100%);
+  background: linear-gradient(135deg, $primary-color 0%, $primary-light 100%);
 }
 
 .stat-icon.today {
-  background: linear-gradient(135deg, #52c41a 0%, #95de64 100%);
+  background: linear-gradient(135deg, $success-color 0%, color.scale($success-color, $lightness: 10%) 100%);
 }
 
 .stat-icon.week {
-  background: linear-gradient(135deg, #faad14 0%, #ffd666 100%);
+  background: linear-gradient(135deg, $warning-color 0%, color.scale($warning-color, $lightness: 10%) 100%);
 }
 
 .stat-icon.month {
-  background: linear-gradient(135deg, #f5222d 0%, #ff7875 100%);
+  background: linear-gradient(135deg, $danger-color 0%, color.scale($danger-color, $lightness: 10%) 100%);
 }
 
 .stat-content {
@@ -333,88 +331,114 @@ const goToWithdraw = () => {
 }
 
 .stat-label {
-  font-size: 1.2rem;
-  color: #969799;
-  margin-bottom: 0.5rem;
+  font-size: $font-size-md;
+  color: $text-color-secondary;
+  margin-bottom: $spacing-xs;
+  font-weight: $font-weight-medium;
 }
 
 .stat-value {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #323233;
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $text-color;
+  line-height: $line-height-sm;
 }
 
 .stat-value.highlight {
-  color: #52c41a;
-  font-size: 2rem;
+  color: $success-color;
+  font-size: $font-size-xxxl;
 }
 
 /* 提现按钮 */
 .withdraw-section {
-  margin-top: 1.5rem;
+  margin-top: $spacing-xl;
 }
 
 .withdraw-btn {
-  border-radius: 25px;
-  font-weight: 600;
-  padding: 1rem 0;
-  font-size: 1.5rem;
-  background: linear-gradient(135deg, #1989fa 0%, #36cfc9 100%);
+  border-radius: $border-radius-full;
+  font-weight: $font-weight-semibold;
+  padding: $spacing-lg 0;
+  font-size: $font-size-lg;
+  background: linear-gradient(135deg, $primary-color 0%, $primary-light 100%);
   border: none;
+  box-shadow: 0 4px 16px rgba(25, 137, 250, 0.3);
+  transition: all $transition-base;
+  
+  &:hover {
+    box-shadow: 0 6px 20px rgba(25, 137, 250, 0.4);
+    transform: translateY(-2px);
+  }
 }
 
-/* 时间筛�?*/
+/* 时间筛选 */
 .time-filter-section {
-  background-color: #fff;
-  margin: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  background-color: $white;
+  margin: $spacing-lg;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
   overflow: hidden;
+  transition: all $transition-base;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+  }
 }
 
 .time-tabs {
-  background-color: #fff;
+  background-color: $white;
+  
+  :deep(.van-tabs__nav) {
+    background-color: $white;
+  }
+  
+  :deep(.van-tab) {
+    font-size: $font-size-md;
+    font-weight: $font-weight-medium;
+    color: $text-color-secondary;
+  }
+  
+  :deep(.van-tab--active) {
+    color: $primary-color;
+  }
+  
+  :deep(.van-tabs__line) {
+    background-color: $primary-color;
+    height: 3px;
+    width: 30px;
+    border-radius: 2px;
+  }
 }
 
-.time-tabs :deep(.van-tabs__nav) {
-  background-color: #fff;
-}
-
-.time-tabs :deep(.van-tab) {
-  font-size: 1.4rem;
-  font-weight: 500;
-}
-
-.time-tabs :deep(.van-tabs__line) {
-  background-color: #1989fa;
-  height: 3px;
-  width: 30px;
-}
-
-/* 收益趋势�?*/
+/* 收益趋势图 */
 .trend-section {
-  background-color: #fff;
-  margin: 1rem;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  background-color: $white;
+  margin: $spacing-lg;
+  padding: $spacing-xl;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+  }
 }
 
 .trend-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: $spacing-xl;
 }
 
 .trend-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #323233;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $text-color;
   margin: 0;
 }
 
 .trend-chart {
-  background-color: #fafafa;
-  padding: 1.5rem;
-  border-radius: 8px;
+  background-color: $background-color-light;
+  padding: $spacing-xl;
+  border-radius: $border-radius-md;
+  border: 1px solid $border-color-light;
 }
 
 .chart-container {
@@ -428,7 +452,7 @@ const goToWithdraw = () => {
   justify-content: space-around;
   align-items: flex-end;
   height: 100%;
-  padding: 0 1rem;
+  padding: 0 $spacing-lg;
 }
 
 .chart-bar {
@@ -443,29 +467,30 @@ const goToWithdraw = () => {
 
 .bar {
   width: 100%;
-  background: linear-gradient(180deg, #1989fa 0%, #36cfc9 100%);
-  border-radius: 4px 4px 0 0;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.bar:hover {
-  transform: scaleY(1.05);
-  box-shadow: 0 4px 8px rgba(25, 137, 250, 0.3);
+  background: linear-gradient(180deg, $primary-color 0%, $primary-light 100%);
+  border-radius: $border-radius-sm $border-radius-sm 0 0;
+  transition: all $transition-base;
+  box-shadow: 0 2px 8px rgba(25, 137, 250, 0.2);
+  
+  &:hover {
+    transform: scaleY(1.05);
+    box-shadow: 0 4px 12px rgba(25, 137, 250, 0.3);
+  }
 }
 
 .bar-label {
-  font-size: 1.1rem;
-  color: #969799;
-  margin-top: 0.5rem;
+  font-size: $font-size-xs;
+  color: $text-color-secondary;
+  margin-top: $spacing-xs;
   text-align: center;
+  font-weight: $font-weight-medium;
 }
 
 .bar-value {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #1989fa;
-  margin-bottom: 0.5rem;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $primary-color;
+  margin-bottom: $spacing-xs;
   text-align: center;
 }
 
@@ -474,91 +499,103 @@ const goToWithdraw = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
-  background-color: #fff;
-  margin: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: $spacing-lg $spacing-xl;
+  background-color: $white;
+  margin: $spacing-lg;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+  }
 }
 
 .records-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #323233;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $text-color;
   margin: 0;
 }
 
 .refresh-icon {
   cursor: pointer;
-  color: #969799;
-  transition: all 0.3s ease;
-}
-
-.refresh-icon:hover {
-  color: #1989fa;
-  transform: rotate(180deg);
+  color: $text-color-secondary;
+  transition: all $transition-base;
+  font-size: $font-size-lg;
+  
+  &:hover {
+    color: $primary-color;
+    transform: rotate(180deg);
+  }
 }
 
 /* 收益记录列表 */
 .records-list {
-  padding: 0 1rem 1rem;
+  padding: 0 $spacing-lg $spacing-lg;
 }
 
 .record-list {
-  background-color: #fff;
-  border-radius: 12px;
+  background-color: $white;
+  border-radius: $border-radius-lg;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+  }
 }
 
 .record-item {
   display: flex;
   align-items: center;
-  padding: 1.5rem;
-  border-bottom: 1px solid #ebedf0;
-  transition: all 0.3s ease;
-  gap: 1.2rem;
-}
-
-.record-item:last-child {
-  border-bottom: none;
-}
-
-.record-item:hover {
-  background-color: #fafafa;
-  transform: translateX(4px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: $spacing-xl;
+  border-bottom: 1px solid $border-color-light;
+  transition: all $transition-base;
+  gap: $spacing-lg;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &:hover {
+    background-color: $background-color-light;
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
 }
 
 /* 左侧图标 */
 .record-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: 56px;
+  height: 56px;
+  border-radius: $border-radius-md;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  transition: all $transition-base;
+  font-size: $font-size-lg;
+  
+  .record-item:hover & {
+    transform: scale(1.1);
+  }
 }
 
 .icon-delivery {
   background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);
-  color: #1989fa;
+  color: $primary-color;
 }
 
 .icon-bonus {
   background: linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%);
-  color: #52c41a;
+  color: $success-color;
 }
 
 .icon-penalty {
   background: linear-gradient(135deg, #fff1f0 0%, #ffccc7 100%);
-  color: #f5222d;
-}
-
-.record-item:hover .record-icon {
-  transform: scale(1.1);
+  color: $danger-color;
 }
 
 /* 中间内容 */
@@ -566,7 +603,7 @@ const goToWithdraw = () => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: $spacing-xs;
 }
 
 .record-main {
@@ -577,9 +614,9 @@ const goToWithdraw = () => {
 }
 
 .record-title {
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: #323233;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $text-color;
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -589,54 +626,101 @@ const goToWithdraw = () => {
 .record-meta {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: $spacing-md;
   flex-wrap: wrap;
 }
 
 .record-type {
-  padding: 0.3rem 0.8rem;
-  border-radius: 16px;
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #fff;
+  padding: $spacing-xs $spacing-md;
+  border-radius: $border-radius-full;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .type-delivery {
-  background: linear-gradient(135deg, #1989fa 0%, #36cfc9 100%);
+  background: linear-gradient(135deg, $primary-color 0%, $primary-light 100%);
 }
 
 .type-bonus {
-  background: linear-gradient(135deg, #52c41a 0%, #95de64 100%);
+  background: linear-gradient(135deg, $success-color 0%, color.scale($success-color, $lightness: 10%) 100%);
 }
 
 .type-penalty {
-  background: linear-gradient(135deg, #f5222d 0%, #ff7875 100%);
+  background: linear-gradient(135deg, $danger-color 0%, color.scale($danger-color, $lightness: 10%) 100%);
 }
 
 .record-date {
-  font-size: 1.1rem;
-  color: #969799;
+  font-size: $font-size-xs;
+  color: $text-color-secondary;
   white-space: nowrap;
 }
 
 .record-amount {
-  font-size: 1.8rem;
-  font-weight: 600;
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
   text-align: right;
   flex-shrink: 0;
   min-width: 80px;
 }
 
 .amount-delivery {
-  color: #1989fa;
+  color: $primary-color;
 }
 
 .amount-bonus {
-  color: #52c41a;
+  color: $success-color;
 }
 
 .amount-penalty {
-  color: #f5222d;
+  color: $danger-color;
+}
+
+/* 响应式设计 */
+@media (max-width: $breakpoint-sm) {
+  .earnings-stats-card,
+  .time-filter-section,
+  .trend-section,
+  .records-header {
+    margin: $spacing-md;
+    padding: $spacing-lg;
+  }
+  
+  .stat-grid {
+    gap: $spacing-lg;
+  }
+  
+  .stat-item {
+    padding: $spacing-md;
+  }
+  
+  .stat-icon {
+    width: 48px;
+    height: 48px;
+    font-size: $font-size-md;
+  }
+  
+  .stat-value {
+    font-size: $font-size-xl;
+  }
+  
+  .stat-value.highlight {
+    font-size: $font-size-xxl;
+  }
+  
+  .record-item {
+    padding: $spacing-lg;
+  }
+  
+  .record-amount {
+    font-size: $font-size-xl;
+  }
+  
+  .record-icon {
+    width: 48px;
+    height: 48px;
+    font-size: $font-size-md;
+  }
 }
 </style>

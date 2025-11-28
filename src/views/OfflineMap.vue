@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { useOfflineMapStore } from '../stores/offlineMap'
 import CustomDialog from '../components/CustomDialog.vue'
+import CustomNavBar from '../components/CustomNavBar.vue'
 import { toast } from '../utils/toast'
 
-const router = useRouter()
 const offlineMapStore = useOfflineMapStore()
 
 // 加载状态
@@ -121,7 +120,7 @@ const toggleAutoUpdate = async () => {
 <template>
   <div class="offline-map-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar title="离线地图" @click-left="router.back()" class="custom-nav-bar" left-arrow />
+    <CustomNavBar title="离线地图" />
 
     <!-- 自动更新设置 -->
     <div class="setting-item">

@@ -13,6 +13,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     CountdownTimer: typeof import('./src/components/CountdownTimer.vue')['default']
     CustomDialog: typeof import('./src/components/CustomDialog.vue')['default']
+    CustomNavBar: typeof import('./src/components/CustomNavBar.vue')['default']
     CustomToast: typeof import('./src/components/CustomToast.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     MapComponent: typeof import('./src/components/MapComponent.vue')['default']

@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCommunityStore } from '../stores/community'
+import CustomNavBar from '../components/CustomNavBar.vue'
 import { toast } from '../utils/toast'
 
 const router = useRouter()
@@ -91,22 +92,13 @@ const submitForm = async () => {
   }
 }
 
-// 返回社区首页
-const goBack = () => {
-  router.back()
-}
+// 返回功能已由CustomNavBar组件处理
 </script>
 
 <template>
   <div class="create-post-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar title="发布帖子" class="custom-nav-bar">
-      <template #left>
-        <div @click="goBack" class="back-btn">
-          <van-icon name="arrow-left" size="20" color="#fff" />
-        </div>
-      </template>
-    </van-nav-bar>
+    <CustomNavBar title="发布帖子" />
     
     <!-- 表单内容 -->
     <div class="form-container">

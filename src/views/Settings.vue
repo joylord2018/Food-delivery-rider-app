@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import CustomDialog from '../components/CustomDialog.vue'
+import CustomNavBar from '../components/CustomNavBar.vue'
 import { toast } from '../utils/toast'
 
 const router = useRouter()
@@ -116,7 +117,7 @@ const logout = () => {
 <template>
   <div class="settings-container">
     <!-- 顶部导航栏-->
-    <van-nav-bar title="设置" />
+    <CustomNavBar title="设置" />
 
     <!-- 可滚动内容区域 -->
     <div class="scrollable-content">
