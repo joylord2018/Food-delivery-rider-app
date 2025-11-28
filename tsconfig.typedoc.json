@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/services/apiService.ts",
+    "src/services/storageService.ts",
+    "src/mock/index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.vue",
+    "**/__tests__/**",
+    "**/*.spec.ts"
+  ]
+}

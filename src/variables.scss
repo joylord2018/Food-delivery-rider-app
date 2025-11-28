@@ -1,0 +1,27 @@
+/* SCSS Variables */
+@use 'sass:color';
+
+// 主题色
+$primary-color: #1989fa;
+$success-color: #52c41a;
+$warning-color: #faad14;
+$danger-color: #f5222d;
+
+// 文本色
+$text-color: #323233;
+$text-color-secondary: #969799;
+
+// 边框和背景色
+$border-color: #ebedf0;
+$background-color: #f5f7fa;
+$white: #ffffff;
+
+// 字体大小
+$font-size-sm: 12px;
+$font-size-md: 14px;
+$font-size-lg: 16px;
+
+// 行高
+$line-height-base: 1.5;
+
+
